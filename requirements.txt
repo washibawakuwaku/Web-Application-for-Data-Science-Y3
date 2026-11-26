@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Student Attendance Management System — all dependencies.
 # One-command install for the whole project:
 #     pip install -r requirements.txt
@@ -22,3 +23,10 @@ jupyterlab>=4.0
 
 # ---- Tests ----
 pytest>=8.0
+=======
+# Install everything with:  pip install -r requirements.txt
+django>=5.1
+streamlit>=1.50
+requests>=2.31
+pandas>=2.0
+>>>>>>> e0f63b6cca91b78fdafa627e46b3ae3140f1b1b5

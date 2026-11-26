@@ -3,6 +3,7 @@ __pycache__/
 .venv/
 venv/
 .env
+<<<<<<< HEAD
 .DS_Store
 .pytest_cache/
 .ipynb_checkpoints/
@@ -22,3 +23,12 @@ reports/figures/*.png
 # Local tool links (point to paths on one PC only)
 frontend/.agents/
 frontend/.claude/
+=======
+db.sqlite3
+.streamlit/secrets.toml
+.DS_Store
+.pytest_cache/
+.ipynb_checkpoints/
+data/processed/*.csv
+backend_django/db.sqlite3
+>>>>>>> e0f63b6cca91b78fdafa627e46b3ae3140f1b1b5

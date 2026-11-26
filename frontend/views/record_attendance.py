@@ -6,6 +6,7 @@ import streamlit as st
 
 import api_client
 import components as ui
+<<<<<<< HEAD
 import theme
 
 ui.page_header("Record Attendance",
@@ -25,18 +26,42 @@ with st.container(border=True):
     course_id = c1.selectbox("Course", list(labels), format_func=labels.get)
     day = c2.date_input("Date", value=date.today(), max_value=date.today())
     default_status = c3.selectbox("Default for unmarked", ["Present", "Late", "Absent"])
+=======
+
+st.title("📝 Record Attendance")
+
+courses = ui.load(api_client.get, "/api/courses")["items"]
+if not courses:
+    st.info("No courses available. An admin needs to create a course and assign it to you.")
+    st.stop()
+
+labels = {c["id"]: f"{c['subject_name']} — {c['class_name']}" + (f"  ({c['schedule']})" if c["schedule"] else "")
+          for c in courses}
+c1, c2, c3 = st.columns([2, 1, 1])
+course_id = c1.selectbox("Course", list(labels), format_func=labels.get)
+day = c2.date_input("Date", value=date.today(), max_value=date.today())
+default_status = c3.selectbox("Default for unmarked students", ["Present", "Late", "Absent"])
+>>>>>>> e0f63b6cca91b78fdafa627e46b3ae3140f1b1b5
 
 sheet = ui.load(api_client.get, "/api/attendance/sheet", course=course_id, date=day.isoformat())
 roster = sheet["students"]
 if not roster:
+<<<<<<< HEAD
     st.warning("This class has no students yet. Add students in **Students** and enrol them in the class.",
                icon=":material/group_off:")
+=======
+    st.warning("This class has no students yet. Add students in **Students** and enrol them in the class.")
+>>>>>>> e0f63b6cca91b78fdafa627e46b3ae3140f1b1b5
     st.stop()
 
 already = sum(1 for s in roster if s["status"])
 if already:
     st.info(f"Attendance was already saved for {already} of {len(roster)} students on this date. "
+<<<<<<< HEAD
             "Saving again will update it.", icon=":material/history:")
+=======
+            "Saving again will update it.")
+>>>>>>> e0f63b6cca91b78fdafa627e46b3ae3140f1b1b5
 
 df = pd.DataFrame([{
     "Student ID": s["student_code"], "Student": s["student_name"],
@@ -47,13 +72,18 @@ edited = st.data_editor(
     df, key=f"sheet_{course_id}_{day}_{default_status}", hide_index=True, width="stretch",
     disabled=["Student ID", "Student"],
     column_config={
+<<<<<<< HEAD
         "Status": st.column_config.SelectboxColumn("Status", options=["Present", "Late", "Absent"],
                                                    required=True, width="small"),
+=======
+        "Status": st.column_config.SelectboxColumn("Status", options=["Present", "Late", "Absent"], required=True),
+>>>>>>> e0f63b6cca91b78fdafa627e46b3ae3140f1b1b5
         "Remark": st.column_config.TextColumn("Remark", max_chars=200),
     },
 )
 
 counts = edited["Status"].value_counts()
+<<<<<<< HEAD
 m = st.columns(4)
 m[0].metric("Present", int(counts.get("Present", 0)), icon=theme.STATUS_ICON["present"])
 m[1].metric("Late", int(counts.get("Late", 0)), icon=theme.STATUS_ICON["late"])
@@ -68,8 +98,25 @@ if st.button("Save attendance", type="primary", icon=theme.mi("save"), width="st
         result = api_client.post("/api/attendance/bulk",
                                  {"course_id": course_id, "date": day.isoformat(), "records": records})
         st.toast(f"Saved {result['saved']} records.", icon=":material/check_circle:")
+=======
+st.caption(f"Present {counts.get('Present', 0)} · Late {counts.get('Late', 0)} · "
+           f"Absent {counts.get('Absent', 0)} · Total {len(edited)}")
+
+if st.button("💾 Save attendance", type="primary"):
+    records = []
+    for i, row in edited.reset_index(drop=True).iterrows():
+        remark = row["Remark"] if isinstance(row["Remark"], str) else ""
+        records.append({"student_id": roster[i]["student_id"], "status": row["Status"].lower(), "remark": remark})
+    try:
+        result = api_client.post("/api/attendance/bulk",
+                                 {"course_id": course_id, "date": day.isoformat(), "records": records})
+>>>>>>> e0f63b6cca91b78fdafa627e46b3ae3140f1b1b5
         st.success(f"Saved {result['saved']} records for {result['course']} on {result['date']}.")
     except api_client.AuthExpired as e:
         api_client.show_error_and_stop(e)
     except api_client.APIError as e:
+<<<<<<< HEAD
         st.error(str(e), icon=":material/error:")
+=======
+        st.error(str(e))
+>>>>>>> e0f63b6cca91b78fdafa627e46b3ae3140f1b1b5

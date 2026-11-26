@@ -1,5 +1,9 @@
 """
+<<<<<<< HEAD
 Streamlit frontend — entry point.  Run from the frontend/ folder:
+=======
+Streamlit frontend.  Run from the frontend/ folder:
+>>>>>>> e0f63b6cca91b78fdafa627e46b3ae3140f1b1b5
 
     cd frontend
     streamlit run app.py
@@ -8,6 +12,7 @@ import streamlit as st
 
 import api_client
 import config
+<<<<<<< HEAD
 import theme
 
 st.set_page_config(
@@ -25,10 +30,20 @@ user = st.session_state.get("user")
 # ---------------------------------------------------------------- not signed in
 if not user:
     st.navigation([st.Page("views/login.py", title="Sign in", icon=theme.mi("login"))]).run()
+=======
+
+st.set_page_config(page_title=config.PROJECT_TITLE, page_icon=config.PROJECT_ICON, layout="wide")
+
+user = st.session_state.get("user")
+
+if not user:
+    st.navigation([st.Page("views/login.py", title="Sign in", icon="🔐")]).run()
+>>>>>>> e0f63b6cca91b78fdafa627e46b3ae3140f1b1b5
     st.stop()
 
 role = user["role"]
 
+<<<<<<< HEAD
 # ---------------------------------------------------------------- sidebar: brand + user
 with st.sidebar:
     _logo = theme.logo_data_uri()
@@ -57,6 +72,31 @@ students = P("views/students.py", title="Students", icon=theme.mi("students"))
 classes = P("views/classes.py", title="Classes & Courses", icon=theme.mi("classes"))
 users = P("views/users.py", title="Users & Roles", icon=theme.mi("users"))
 about = P("views/about.py", title="About", icon=theme.mi("about"))
+=======
+# Sidebar: who is logged in + backend status
+with st.sidebar:
+    st.markdown(f"**{user['name']}**  \n`{role}`")
+    if st.button("Log out", width="stretch"):
+        api_client.logout()
+        st.rerun()
+    try:
+        api_client.health()
+        st.success("Backend connected")
+    except api_client.APIError:
+        st.error("Backend not connected")
+    st.caption(f"API: {api_client.API_URL}")
+
+dashboard = st.Page("views/dashboard.py", title="Dashboard", icon="📊", default=True)
+alerts = st.Page("views/alerts.py", title="Low Attendance Alerts", icon="🚨")
+trends = st.Page("views/trends.py", title="Trend Analysis", icon="📈")
+record = st.Page("views/record_attendance.py", title="Record Attendance", icon="📝")
+history = st.Page("views/history.py", title="Attendance History", icon="🕘")
+reports = st.Page("views/reports.py", title="Reports & Export", icon="📄")
+students = st.Page("views/students.py", title="Students", icon="🧑‍🎓")
+classes = st.Page("views/classes.py", title="Classes & Courses", icon="🏫")
+users = st.Page("views/users.py", title="Users & Roles", icon="👥")
+about = st.Page("views/about.py", title="About", icon="ℹ️")
+>>>>>>> e0f63b6cca91b78fdafa627e46b3ae3140f1b1b5
 
 if role == "admin":
     pages = {"Overview": [dashboard, alerts, trends],
@@ -72,6 +112,7 @@ else:  # student
     pages = {"My attendance": [dashboard, history, alerts, trends, reports],
              "Info": [about]}
 
+<<<<<<< HEAD
 nav = st.navigation(pages)
 
 # ---------------------------------------------------------------- sidebar: status + logout
@@ -89,3 +130,6 @@ with st.sidebar:
     st.caption(f"API · {api_client.API_URL}")
 
 nav.run()
+=======
+st.navigation(pages).run()
+>>>>>>> e0f63b6cca91b78fdafa627e46b3ae3140f1b1b5

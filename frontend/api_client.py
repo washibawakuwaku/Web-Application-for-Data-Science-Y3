@@ -46,6 +46,7 @@ def _request(method: str, path: str, **kwargs):
 
 
 # ---------------------------------------------------------------- session
+<<<<<<< HEAD
 # The login token is also saved in a browser cookie so a page refresh keeps the
 # user signed in (st.session_state alone is wiped on a hard refresh).
 COOKIE_NAME = "attn_token"
@@ -104,12 +105,20 @@ def start_session(response: dict):
     st.session_state["token"] = response["token"]
     st.session_state["user"] = response["user"]
     _save_token_cookie(response["token"])
+=======
+def start_session(response: dict):
+    st.session_state["token"] = response["token"]
+    st.session_state["user"] = response["user"]
+>>>>>>> e0f63b6cca91b78fdafa627e46b3ae3140f1b1b5
 
 
 def clear_session():
     st.session_state.pop("token", None)
     st.session_state.pop("user", None)
+<<<<<<< HEAD
     _clear_token_cookie()
+=======
+>>>>>>> e0f63b6cca91b78fdafa627e46b3ae3140f1b1b5
 
 
 def health():
