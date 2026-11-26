@@ -1,0 +1,7 @@
+# Offline analysis + notebooks only.
+#     pip install -r analysis/requirements.txt
+pandas>=2.0
+matplotlib>=3.8
+seaborn>=0.13
+jupyterlab>=4.0
+pytest>=8.0

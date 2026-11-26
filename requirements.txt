@@ -1,0 +1,24 @@
+# Student Attendance Management System — all dependencies.
+# One-command install for the whole project:
+#     pip install -r requirements.txt
+#
+# (Or install per layer:  backend_django/requirements.txt, frontend/requirements.txt,
+#  analysis/requirements.txt — see README.md.)
+
+# ---- Backend (Django REST API + SQLite) ----
+django>=5.1
+
+# ---- Frontend (Streamlit web app) ----
+streamlit>=1.50
+altair>=5.0            # interactive charts (ships with Streamlit; pinned for clarity)
+requests>=2.31         # Streamlit -> Django API calls
+streamlit-cookies-controller>=0.0.4   # keeps users signed in across page refreshes
+
+# ---- Data / analysis (notebooks + reports) ----
+pandas>=2.0
+matplotlib>=3.8
+seaborn>=0.13
+jupyterlab>=4.0
+
+# ---- Tests ----
+pytest>=8.0

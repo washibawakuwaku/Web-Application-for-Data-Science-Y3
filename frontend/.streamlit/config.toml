@@ -1,0 +1,35 @@
+# Professional theme for the Student Attendance Management System.
+# Colours, fonts, radius and chart palette are set here; theme.py adds the rest via CSS.
+
+[theme]
+base = "light"
+primaryColor = "#4f46e5"                 # indigo brand (buttons, links, accents)
+backgroundColor = "#f4f6fb"              # app canvas (light slate)
+secondaryBackgroundColor = "#ffffff"     # cards, inputs, tables
+textColor = "#0f172a"                    # ink (slate-900)
+linkColor = "#4f46e5"
+font = "sans-serif"
+headingFont = "sans-serif"
+baseRadius = "0.75rem"
+buttonRadius = "0.6rem"
+borderColor = "#e8ebf2"
+showWidgetBorder = true
+baseFontSize = 15
+
+# present · late · absent · brand … (used by charts)
+chartCategoricalColors = ["#4f46e5", "#0ca30c", "#fab219", "#d03b3b", "#7c3aed", "#0ea5e9", "#eb6834", "#e87ba4"]
+chartSequentialColors = ["#e0e7ff", "#c7d2fe", "#a5b4fc", "#818cf8", "#6366f1", "#4f46e5", "#4338ca"]
+
+[theme.sidebar]
+backgroundColor = "#0f1222"
+secondaryBackgroundColor = "#1b1f36"
+textColor = "#e5e7f0"
+primaryColor = "#818cf8"
+borderColor = "#232842"
+baseRadius = "0.6rem"
+
+[server]
+runOnSave = true
+
+[client]
+toolbarMode = "minimal"

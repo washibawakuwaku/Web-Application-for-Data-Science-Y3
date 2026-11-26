@@ -1,0 +1,3 @@
+# Backend only (Django REST API + SQLite).
+#     pip install -r backend_django/requirements.txt
+django>=5.1
